@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>내장 객체 - Response</title>
+	</head>
+	<body>
+		<%
+		String id = request.getParameter("user_id");
+		String pwd = request.getParameter("user_pwd");
+		// 문자열을 통한 단순비교로 로그인 정보를 확인한다.
+		// 만약 정보가 일치한다면 Welcome페이지로 이동한다.
+		if(id.equalsIgnoreCase("must") && pwd.equalsIgnoreCase("1234")){
+			response.sendRedirect("ResponseWelocome.jsp");
+		}
+		else {
+			request.getRequestDispatcher("ResponeMain.jsp?loginErr=1").forward(request, response);
+		}
+		%>
+	</body>
+</html>
