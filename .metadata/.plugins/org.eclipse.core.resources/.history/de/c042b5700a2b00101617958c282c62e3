@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%
+/*
+trimDirectiveWhitespaces : 지시어 속성 중 상단의 불필요한 공백을 삭제한다.
+	콜백데이터는 해당 페이지에 출력되는 모든 소스코드를 반환하게되는데,
+	공백도 하나의 문자이므로 필요없는 경우 제거하는 것이 좋다.
+*/
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

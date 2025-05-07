@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+String popupMode = "on";
+//쿠키를 배열로 얻어온 후 모든 쿠키를 읽는다
+Cookie[] cookies = request.getCookies();
+if (cookies != null) {
+    for (Cookie c : cookies) {
+        String cookieName = c.getName();
+        String cookieValue = c.getValue();
+        // 만약 쿠키명이 아래와 일치한다면 쿠키값을 읽어 변수에 저장한다.
+        if (cookieName.equals("PopupClose")) {
+            popupMode = cookieValue; // popupMode의 값을 갱신
+        }
+    }
+} 
+%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<title>쿠키를 이용한 팝업 관리</title>
+	</head>
+	<body>
+	
+	</body>
+</html>

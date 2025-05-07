@@ -1,0 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+String popupMode = "on";
+//쿠키를 배열로 얻어온 후 모든 쿠키를 읽는다
+Cookie[] cookies = request.getCookies();
+if (cookies != null) {
+    for (Cookie c : cookies) {
+        String cookieName = c.getName();
+        String cookieValue = c.getValue();
+        // 만약 쿠키명이 아래와 일치한다면 쿠키값을 읽어 변수에 저장한다.
+        if (cookieName.equals("PopupClose")) {
+            popupMode = cookieValue; // popupMode의 값을 갱신
+        }
+    }
+} 
+%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<title>쿠키를 이용한 팝업 관리</title>
+		<style>
+		    div#popup{
+		        position: absolute; top:100px; left:100px; color:yellow;  
+		        width:300px; height:100px; background-color:gray;
+		    }
+		    div#popup>div{
+		        position: relative; background-color:#ffffff; top:0px;
+		        border:1px solid gray; padding:10px; color:black;
+		    }
+		</style>
+		<script>
+		$(function() {
+			$('#closeBtn').click(function() {
+		        $('#popup').hide();
+		     	// 하루동안 열지 않음 체크박스에 체크한 경우에는 value를 얻어와서 
+		    	// 변수에 저장한다.
+		    	var chkVal = $("input:checkbox[id=inactiveToday]:checked").val();
+		    	// jQuery의 ajax()함수를 통해 요청값을 전송한다.
+		    	$.ajax({
+		    		// 요청할 서버의 URL(경로)
+		    		yrl : './PopupCookie.jsp',
+				});		
+			});
+		});		
+		</script>
+	</head>
+	<body>
+	
+	</body>
+</html>
