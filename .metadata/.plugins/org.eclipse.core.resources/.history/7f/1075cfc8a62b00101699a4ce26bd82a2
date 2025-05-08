@@ -1,0 +1,81 @@
+package common;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
+// DB연결을 위한 클래스 생성
+public class JDBConnect
+{
+	// 멤버변수 : 연결, 쿼리문 실행 및 전송, 결과셋 반환
+	public Connection con;	// 데이터 베이스와 연결을 담당.
+	// 인파라미터가 없는 정적 쿼리문을 실행할 때 사용.
+	public Statement stmt;
+	// 인파라미터가 있는 동적 쿼리문을 실행할 때 사용.
+	public PreparedStatement psmt;
+	// select 쿼리문의 결과를 저장할 때 사용.
+	public ResultSet rs;
+	
+	// 기본 생성자 : 매개변수가 없는 생성자.
+	public JDBConnect()
+	{
+		try
+		{
+			// JDBC 드라이버를 메모리에 로드-오라클 드라이브 로드
+			Class.forName("oracle.jdbc.OracleDriver");
+			String url = "jdbc:orcle:thin:@localhost:1521:xe";
+			String id = "musthave";
+			String pwd = "1234";
+			
+			con = DriverManager.getConnection(url, id, pwd);
+			System.out.println("DB 연결 성공(기본생성자)");
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+//	public JDBConnect(String driver, String url, String id, String pwd)
+//	{
+//		try
+//		{
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, id, pwd);
+//			System.out.println("DB 연결 성공(인수 생성자 1)");
+//		} catch (Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	public JDBConnect(ServletContext application)
+//	{
+//		try
+//		{
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, id, pwd);
+//			System.out.println("DB 연결 성공(인수 생성자 1)");
+//		} catch (Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public void close() {
+		try
+		{
+			if(rs != null) rs.close();
+			if(stmt != null) stmt.close();
+			if(psmt != null) psmt.close();
+			if(con != null) con.close();
+			
+			System.out.println("JDBC 자원 해제");
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+}

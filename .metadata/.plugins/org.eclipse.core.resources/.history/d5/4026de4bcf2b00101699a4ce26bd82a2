@@ -1,0 +1,45 @@
+package membership;
+
+import common.JDBConnect;
+
+/*
+DAO(Data Access Object) : 실제 데이터베이스에 접근하여 여러가지
+	CRUD작업을 하기위한 객체
+*/
+//DB 연결은 자주 쓰이는 작업이므로 이와 같이 상속으로 처리하면 편리하다.
+public class MemberDAO extends JDBConnect
+{
+	// 생성자 메서드
+	// 매개변수가 4개인 부모의 생성자를 호출하여 DB에 연결한다.
+	public MemberDAO(String drv, String url, String id, String pw) {
+		super(drv, url, id, pw);	// 부모 클래스의 생성자
+	}
+	
+	/*
+	 	사용자가 입력한 아이디, 패스워드를 통해 회원테이블을 select한 후 
+	 	존재하는 정보인 경우 DTO객체에 그 정보를 담아 반환한다. 
+	 */
+	public MemberDTO getMemberDTO(String uid, String upass) {
+		MemberDTO dto = new MemberDTO();
+		String query = "SELECT * FROM member WHERE id=? AND pass=?";
+		
+		try
+		{
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, uid);
+			psmt.setString(2, upass);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setId(rs.getString("id"));
+				dto.setPass(rs.getString("pass"));
+				dto.setName(rs.getString(3));
+				dto.setRegidate(rs.getString(4));
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return dto;
+	}
+}
