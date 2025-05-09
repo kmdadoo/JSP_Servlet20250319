@@ -39,3 +39,18 @@ create table member(
 
 -- 더미 데이터 입력
 insert into member (id, pass, name) values ('musthave', '1234', '머스트헤브');
+
+select * from member;
+
+-- 9장 페이징
+DESC member;
+
+SELECT * FROM member;
+SELECT id, pass, rownum FROM member;
+
+SELECT * FROM (
+    SELECT Tb.*, rownum rNum FROM (
+        SELECT * FROM board ORDER BY num DESC
+    ) Tb
+ )
+ WHERE rNum BETWEEN 1 and 10; 
