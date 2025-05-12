@@ -1,0 +1,25 @@
+<%@page import="common.Person"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>표현 언어(EL) - 컬렉션</title>
+	</head>
+	<body>
+		<h2>List 컬렉션</h2>
+		<%
+		// List컬렉션을 Object기반으로 생성한다.
+		List<Object> aList = new ArrayList<Object>();
+		// 아래와 같이 타입매개변수를 생략해도 Object기반의 컬렉션이 된다.
+		/* List aList2 = new ArrayList();  */
+		// String 객체 추가
+		aList.add("청해진");
+		aList.add(new Person("장보고", 28));
+		pageContext.setAttribute("Ocean", aList);
+		%>
+	</body>
+</html>
