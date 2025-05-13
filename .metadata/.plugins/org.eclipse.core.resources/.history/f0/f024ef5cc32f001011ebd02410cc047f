@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- JSTL의 core태그를 사용하기 위한 선언 -->
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!-- 국제화태그 사용을 위한 선언 -->
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JSTL - fmt 1</title>
+	</head>
+	<body>
+		<!-- 
+			국제화(formatting) 태그 : 국가별로 다양한 언어, 날짜, 시간 , 숫자형식을
+				설정할때 사용한다. 접두어로는 fmt를 사용한다.
+		 -->
+		<h4>숫자 포맷 설정</h4>
+		<!-- 변수 생성 -->
+		<c:set var="number1" value="12345" />
+		<fmt:setLocale value="ko-KR" /> <!-- 원화표시가 안나올때 적용 -->
+		콤마 O : <fmt:formatNumber value="${ number1 }" /><br/>
+		콤마 X : <fmt:formatNumber value="${ number1 }" groupingUsed="false"/><br/>
+		<fmt:formatNumber value="${ number1 }" type="currency" var="printNum1" />
+		통화기호(원화로 표시) : ${ printNum1 } <br/>
+		<fmt:formatNumber value="${ number1 }" type="currency" var="printNum1" currencySymbol="$"/>
+		통화기호(달러로 표시) : ${ printNum1 } <br/>
+		
+		<fmt:formatNumber value="0.03" type="percent" var="printNum2" />
+		퍼센트 : ${ printNum2 } <br/>
+		
+		<h4>문자열을 숫자로 변경</h4>
+		<c:set var="number2" value="6,789.01" />
+		<fmt:parseNumber value="${ number2 }" pattern="00,000.00" var="printNum3" />
+		소수점까지 : ${ printNum3 } <br/>
+		<fmt:parseNumber value="${ number2 }" integerOnly="true" var="printNum4" />
+		소수점까지 : ${ printNum4 } <br/>
+	</body>
+</html>
