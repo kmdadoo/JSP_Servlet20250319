@@ -1,5 +1,8 @@
 package fileupload;
 
+import java.util.List;
+import java.util.Vector;
+
 import common.DBConnPool;
 
 /*
@@ -47,4 +50,41 @@ public class MyFileDAO extends DBConnPool
 		}
 		return applyResult;
 	}
+	
+	// 파일 목록 구현을 위해 select 쿼리문 실행
+	public List<MyFileDTO> myFileList()
+	{
+		// List컬렉션을 생성
+		List<MyFileDTO> fileList = new Vector<MyFileDTO>();
+		 // 일련번호를 내림차순으로 정렬한 뒤 게시물을 select한다.
+		String query = "SELECT * FROM myfile ORDER BY idx DESC";
+		try
+		{
+			// 정적 쿼리문 실행
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+			// 인출한 행의 갯수만큼 반복한다.
+			while (rs.next())
+			{
+				// 레코드를 DTO객체로 저장한 후
+				MyFileDTO dto = new MyFileDTO();
+				dto.setIdx(rs.getString(1));
+				dto.setTitle(rs.getString(2));
+				dto.setCate(rs.getString(3));
+				dto.setOfile(rs.getString(4));
+				dto.setSfile(rs.getString(5));
+				dto.setPostdate(rs.getString(6));
+				
+				// List컬렉션에 추가한다.
+				fileList.add(dto);				
+			}
+		} catch (Exception e)
+		{
+			System.out.println("SELECT 시 예외 발생");
+			e.printStackTrace();
+		}
+		// List 객체를 반환
+		return fileList;
+	}
+	
 }
