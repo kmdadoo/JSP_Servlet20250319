@@ -35,7 +35,7 @@ public class WriteController extends HttpServlet
 	{
 		// 1. 파일 업로드 처리 ===============
 		// 파일이 업로드될 디렉토리의 물리적 경로를 얻어온다.
-		String saveDirectory = req.getServletContext().getRealPath("Uploads");
+		String saveDirectory = req.getServletContext().getRealPath("/Uploads");
 		
 		String originalFileName = "";
 		// 13장에서 만든 FileUtil.uploadFile() 메서드 호출
