@@ -155,6 +155,20 @@ public class FileUtil
 			System.out.println("예외가 발생했습니다.");
 			e.printStackTrace();
 		}
-		
+	}
+	
+	// 파일 삭제를 위한 메서드
+	public static void deleteFile(HttpServletRequest req, 
+			String directory, String filename)
+	{
+		// 물리적 경로와 파일명을 통해 File객체를 생성한다.
+		String sDirectory = req.getServletContext().getRealPath(directory);
+		File file = new File(sDirectory + File.separator + filename);
+		// 해당 경로에 파일이 존재하면...
+		if (file.exists())
+		{
+			// 파일을 삭제한다.
+			file.delete();
+		}
 	}
 }
